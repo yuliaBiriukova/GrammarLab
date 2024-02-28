@@ -1,6 +1,0 @@
-@GrammarLab.PL_HostAddress = http://localhost:5189
-
-GET {{GrammarLab.PL_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
