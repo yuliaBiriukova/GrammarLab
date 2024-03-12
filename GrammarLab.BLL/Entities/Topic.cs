@@ -7,5 +7,5 @@ public class Topic
     public string Content { get; set; }
     public int LevelId { get; set; }
     public Level Level { get; set; }
-    public ICollection<Exercise> Exercises { get; set; }
+    public ICollection<Exercise>? Exercises { get; set; }
 }

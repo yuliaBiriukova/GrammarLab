@@ -1,5 +1,7 @@
+using GrammarLab.BLL.Repositories;
 using GrammarLab.BLL.Services;
 using GrammarLab.DAL.Database;
+using GrammarLab.DAL.Repositories;
 using GrammarLab.PL.Extensions;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,8 +21,17 @@ builder.Services.AddAuthServices(builder.Configuration);
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
+builder.Services.AddScoped<ILevelRepository, LevelRepository>();
+builder.Services.AddScoped<ITopicRepository, TopicRepository>();
+builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>();
+builder.Services.AddScoped<ICompletedTestRepository, CompletedTestRepository>();
+
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ILevelService, LevelService>();
+builder.Services.AddScoped<ITopicService, TopicService>();
+builder.Services.AddScoped<IExerciseService, ExerciseService>();
+builder.Services.AddScoped<ICompletedTestService, CompletedTestService>();
 
 var app = builder.Build();
 

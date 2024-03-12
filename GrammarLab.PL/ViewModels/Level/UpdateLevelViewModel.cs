@@ -1,9 +1,8 @@
-﻿namespace GrammarLab.BLL.Entities;
+﻿namespace GrammarLab.PL.ViewModels;
 
-public class Level
+public class UpdateLevelViewModel
 {
     public int Id { get; set; }
     public string Code { get; set; }
     public string Name { get; set; }
-    public ICollection<Topic>? Topics { get; set; }
 }

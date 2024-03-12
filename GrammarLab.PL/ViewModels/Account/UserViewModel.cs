@@ -7,5 +7,6 @@ public class UserViewModel
     public string? LastName { get; set; }
     public string Email { get; set; }
     public string UserName { get; set; }
+    public string LevelCode { get; set; }
     public IEnumerable<string> Roles { get; set; }
 }

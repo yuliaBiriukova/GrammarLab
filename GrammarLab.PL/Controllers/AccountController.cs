@@ -2,6 +2,8 @@
 using GrammarLab.BLL.Models;
 using GrammarLab.BLL.Services;
 using GrammarLab.PL.ViewModels;
+using LanguageExt;
+using LanguageExt.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -46,10 +48,10 @@ public class AccountController : ControllerBase
 
         if (!result.Success)
         {
-            return BadRequest(new { result.Error });
+            return BadRequest( new { Message = result.Error } );
         }
 
-        return Ok(new { result.AccessToken });
+        return Ok(new { result.AccessToken, result.Roles });
     }
 
     [HttpDelete]
@@ -74,14 +76,14 @@ public class AccountController : ControllerBase
 
         if(userId == null)
         {
-            return BadRequest(new { Error = "UserId was not found" });
+            return BadRequest(new { Error = new { Message = "UserId was not found" } });
         }
 
         var userData = await _userService.GetUserDataById(userId);
 
         if(userData == null)
         {
-            return NotFound(new { Error = "User was not found" });
+            return BadRequest(new { Error = new { Message = "User was not found" } });
         }
 
         var model = _mapper.Map<UserViewModel>(userData);

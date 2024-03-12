@@ -62,7 +62,8 @@ public class AccountService : IAccountService
         {
             var user = await _userManager.FindByEmailAsync(loginModel.Email);
             var token = await GenerateJwtTokenAsync(user);
-            return new LoginResultDto { AccessToken = token, Success = true };
+            var roles = await _userManager.GetRolesAsync(user);
+            return new LoginResultDto { AccessToken = token, Success = true, Roles = roles };
         }
         return new LoginResultDto { Success = false, Error = "Invalid email or password." };
     }

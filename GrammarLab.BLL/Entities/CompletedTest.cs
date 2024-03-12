@@ -9,5 +9,5 @@ public class CompletedTest
     public Topic Topic { get; set; }
     public string UserId { get; set; }
     public User User { get; set; }
-    public ICollection<CompletedTestExercise> CompletedTestExercises { get; set; }
+    public ICollection<CompletedTestExercise>? CompletedTestExercises { get; set; }
 }

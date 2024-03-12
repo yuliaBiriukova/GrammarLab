@@ -1,5 +1,4 @@
-﻿using GrammarLab.BLL.Entities;
-using GrammarLab.BLL.Models;
+﻿using GrammarLab.BLL.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace GrammarLab.BLL.Services;

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GrammarLab.BLL.Entities;
 using GrammarLab.BLL.Models;
+using GrammarLab.BLL.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,11 +11,13 @@ public class UserService : IUserService
 {
     private readonly UserManager<User> _userManager;
     private readonly IMapper _mapper;
+    private readonly ILevelRepository _levelRepository;
 
-    public UserService(UserManager<User> userManager, IMapper mapper)
+    public UserService(UserManager<User> userManager, IMapper mapper, ILevelRepository levelRepository)
     {
         _userManager = userManager;
         _mapper = mapper;
+        _levelRepository = levelRepository;
     }
 
     public async Task<IEnumerable<UserDto>?> GetAllUsers()
@@ -52,6 +55,11 @@ public class UserService : IUserService
         if (user == null)
         {
             return null;
+        }
+
+        if (user.LevelId != null)
+        {
+            user.Level = await _levelRepository.GetByIdAsync(user.LevelId.Value);
         }
 
         var userData = _mapper.Map<UserDto>(user);
