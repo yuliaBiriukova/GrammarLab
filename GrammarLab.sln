@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34408.163
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrammarLab.PL", "GrammarLab.PL\GrammarLab.PL.csproj", "{4F6B08C9-C131-4297-BDA9-BA9793EAAFFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrammarLab.PL", "GrammarLab.PL\GrammarLab.PL.csproj", "{4F6B08C9-C131-4297-BDA9-BA9793EAAFFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrammarLab.BLL", "GrammarLab.BLL\GrammarLab.BLL.csproj", "{337C1B7C-190C-40AA-AC0F-E1E7D73F65D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrammarLab.BLL", "GrammarLab.BLL\GrammarLab.BLL.csproj", "{337C1B7C-190C-40AA-AC0F-E1E7D73F65D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrammarLab.DAL", "GrammarLab.DAL\GrammarLab.DAL.csproj", "{DE3D7B29-A3B3-4783-9212-AF91F2319D4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrammarLab.DAL", "GrammarLab.DAL\GrammarLab.DAL.csproj", "{DE3D7B29-A3B3-4783-9212-AF91F2319D4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrammarLab.UnitTests", "GrammarLab.UnitTests\GrammarLab.UnitTests.csproj", "{DA293E65-E373-48C7-A303-0720617B92E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{DE3D7B29-A3B3-4783-9212-AF91F2319D4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE3D7B29-A3B3-4783-9212-AF91F2319D4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE3D7B29-A3B3-4783-9212-AF91F2319D4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA293E65-E373-48C7-A303-0720617B92E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA293E65-E373-48C7-A303-0720617B92E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA293E65-E373-48C7-A303-0720617B92E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA293E65-E373-48C7-A303-0720617B92E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

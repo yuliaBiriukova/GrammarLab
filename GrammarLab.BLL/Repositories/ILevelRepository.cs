@@ -1,5 +1,4 @@
 ﻿using GrammarLab.BLL.Entities;
-using System.Linq.Expressions;
 
 namespace GrammarLab.BLL.Repositories;
 
@@ -7,7 +6,11 @@ public interface ILevelRepository
 {
     Task<int> AddAsync(Level level);
 
-    Task<bool> CheckIsUniqueAsync(Expression<Func<Level, bool>> condition);
+    Task<bool> CheckIsCodeUniqueAsync(string code);
+
+    Task<bool> CheckIsNameUniqueAsync(string name);
+
+    Task<bool> CheckLevelExistsAsync(int id);
 
     Task<bool> DeleteAsync(int id);
 

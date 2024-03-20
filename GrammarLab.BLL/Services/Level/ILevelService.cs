@@ -6,19 +6,17 @@ namespace GrammarLab.BLL.Services;
 
 public interface ILevelService
 {
-    Task<Result<int>> AddAsync(AddLevelDto level);
+    Task<Result<int>> AddLevelAsync(AddLevelDto level);
 
-    Task<bool> CheckLevelExists(int id);
+    Task<Result<bool>> DeleteLevelAsync(int id);
 
-    Task<Result<bool>> DeleteAsync(int id);
+    Task<IEnumerable<LevelDto>> GetAllLevelsAsync();
 
-    Task<IEnumerable<LevelDto>> GetAllAsync();
+    Task<LevelDto?> GetLevelByIdAsync(int id);
 
-    Task<LevelDto?> GetByIdAsync(int id);
+    Task<LevelDto?> GetLevelByIdWithTopicsAsync(int id);
 
-    Task<LevelDto?> GetByIdWithTopicsAsync(int id);
-
-    Task<Result<bool>> UpdateAsync(LevelDto level);
+    Task<Result<bool>> UpdateLevelAsync(LevelDto level);
 
     Task<ValidationException?> ValidateLevelIdAsync(int id);
 }

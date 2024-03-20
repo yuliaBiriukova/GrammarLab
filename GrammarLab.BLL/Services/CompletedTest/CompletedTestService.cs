@@ -23,7 +23,7 @@ public class CompletedTestService : ICompletedTestService
         _mapper = mapper;
     }
 
-    public async Task<Result<int>> AddAsync(AddCompletedTestDto completedTest, string userId)
+    public async Task<Result<int>> AddCompletedtTestAsync(AddCompletedTestDto completedTest, string userId)
     {
         var topicIdValidationError = await _topicService.ValidateTopicIdAsync(completedTest.TopicId);
         if (topicIdValidationError != null)
@@ -58,7 +58,7 @@ public class CompletedTestService : ICompletedTestService
         return id;
     }
 
-    public async Task<Result<bool>> DeleteAsync(int id)
+    public async Task<Result<bool>> DeleteCompletedTestAsync(int id)
     {
         var validationError = await ValidateCompletedTestIdAsync(id);
         if (validationError != null)

@@ -2,7 +2,6 @@
 using GrammarLab.BLL.Repositories;
 using GrammarLab.DAL.Database;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 
 namespace GrammarLab.DAL.Repositories;
 
@@ -22,10 +21,25 @@ public class LevelRepository : ILevelRepository
         return level.Id;
     }
 
-    public async Task<bool> CheckIsUniqueAsync(Expression<Func<Level, bool>> condition)
+    public async Task<bool> CheckIsCodeUniqueAsync(string code)
     {
-        var levelExists = await _dbContext.Levels.AnyAsync(condition);
-        return !levelExists;
+        var codeExists = await _dbContext.Levels
+            .AnyAsync(l => l.Code.ToLower() == code.ToLower());
+
+        return !codeExists;
+    }
+
+    public async Task<bool> CheckIsNameUniqueAsync(string name)
+    {
+        var nameExists = await _dbContext.Levels
+            .AnyAsync(l => l.Name.ToLower() == name.ToLower());
+
+        return !nameExists;
+    }
+
+    public async Task<bool> CheckLevelExistsAsync(int id)
+    {
+        return await _dbContext.Levels.AnyAsync(l => l.Id == id);
     }
 
     public async Task<bool> DeleteAsync(int id)

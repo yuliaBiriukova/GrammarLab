@@ -5,9 +5,9 @@ namespace GrammarLab.BLL.Services;
 
 public interface ICompletedTestService
 {
-    Task<Result<int>> AddAsync(AddCompletedTestDto completedTest, string userId);
+    Task<Result<int>> AddCompletedtTestAsync(AddCompletedTestDto completedTest, string userId);
 
-    Task<Result<bool>> DeleteAsync(int id);
+    Task<Result<bool>> DeleteCompletedTestAsync(int id);
 
     Task<CompletedTestDto?> GetByIdWithExercisesAsync(int id);
 

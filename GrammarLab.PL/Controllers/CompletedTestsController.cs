@@ -66,7 +66,7 @@ public class CompletedTestsController : ControllerBase
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var completedTest = _mapper.Map<AddCompletedTestDto>(model);
-        var result = await _completedTestService.AddAsync(completedTest, userId);
+        var result = await _completedTestService.AddCompletedtTestAsync(completedTest, userId);
 
         return result.Match<IActionResult>(
                value => Ok(value),
@@ -76,7 +76,7 @@ public class CompletedTestsController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteCompletedTest(int id)
     {
-        var result = await _completedTestService.DeleteAsync(id);
+        var result = await _completedTestService.DeleteCompletedTestAsync(id);
 
         return result.Match<IActionResult>(
                value => Ok(value),

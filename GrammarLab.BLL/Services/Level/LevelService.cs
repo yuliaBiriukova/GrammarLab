@@ -18,7 +18,7 @@ public class LevelService : ILevelService
         _mapper = mapper;
     }
 
-    public async Task<Result<int>> AddAsync(AddLevelDto level)
+    public async Task<Result<int>> AddLevelAsync(AddLevelDto level)
     {
         var validationError = await ValidateCodeAndNameAsync(level.Code, level.Name);
         if (validationError != null)
@@ -31,13 +31,7 @@ public class LevelService : ILevelService
         return id;
     }
 
-    public async Task<bool> CheckLevelExists(int id)
-    {
-        var isIdUnique = await _levelRepository.CheckIsUniqueAsync(l => l.Id == id);
-        return !isIdUnique;
-    }
-
-    public async Task<Result<bool>> DeleteAsync(int id)
+    public async Task<Result<bool>> DeleteLevelAsync(int id)
     {
         var validationError = await ValidateLevelIdAsync(id);
         if(validationError != null)
@@ -49,25 +43,25 @@ public class LevelService : ILevelService
         return isDeleted;
     }
 
-    public async Task<IEnumerable<LevelDto>> GetAllAsync()
+    public async Task<IEnumerable<LevelDto>> GetAllLevelsAsync()
     {
         var levels = await _levelRepository.GetAllAsync();
         return _mapper.Map<IEnumerable<LevelDto>>(levels);
     }
 
-    public async Task<LevelDto?> GetByIdAsync(int id)
+    public async Task<LevelDto?> GetLevelByIdAsync(int id)
     {
         var level = await _levelRepository.GetByIdAsync(id);
         return _mapper.Map<LevelDto>(level);
     }
 
-    public async Task<LevelDto?> GetByIdWithTopicsAsync(int id)
+    public async Task<LevelDto?> GetLevelByIdWithTopicsAsync(int id)
     {
         var level = await _levelRepository.GetByIdWithTopicsAsync(id);
         return _mapper.Map<LevelDto>(level);
     }
 
-    public async Task<Result<bool>> UpdateAsync(LevelDto level)
+    public async Task<Result<bool>> UpdateLevelAsync(LevelDto level)
     {
         var validationError = await ValidateLevelAsync(level);
         if (validationError != null)
@@ -82,7 +76,7 @@ public class LevelService : ILevelService
 
     public async Task<ValidationException?> ValidateLevelIdAsync(int id)
     {
-        var levelExists = await CheckLevelExists(id);
+        var levelExists = await _levelRepository.CheckLevelExistsAsync(id);
         if (!levelExists)
         {
             return new ValidationException($"Level with id={id} does not exist.");
@@ -93,7 +87,7 @@ public class LevelService : ILevelService
 
     private async Task<ValidationException?> ValidateCodeAsync(string code)
     {
-        var isCodeUnique = await _levelRepository.CheckIsUniqueAsync(l => l.Code.ToLower() == code.ToLower());
+        var isCodeUnique = await _levelRepository.CheckIsCodeUniqueAsync(code);
         if (!isCodeUnique)
         {
             return new ValidationException($"Level with code {code} exists.");
@@ -104,7 +98,7 @@ public class LevelService : ILevelService
 
     private async Task<ValidationException?> ValidateNameAsync(string name)
     {
-        var isNameUnique = await _levelRepository.CheckIsUniqueAsync(l => l.Name.ToLower() == name.ToLower());
+        var isNameUnique = await _levelRepository.CheckIsNameUniqueAsync(name);
         if (!isNameUnique)
         {
             return new ValidationException($"Level with name {name} exists.");
@@ -134,11 +128,6 @@ public class LevelService : ILevelService
 
         var isCodesMatch = string.Equals(level.Code, existingLevel.Code, StringComparison.OrdinalIgnoreCase);
         var isNamesMatch = string.Equals(level.Name, existingLevel.Name, StringComparison.OrdinalIgnoreCase);
-
-        if(isCodesMatch && isNamesMatch)
-        {
-            return null;
-        }
 
         if(!isCodesMatch)
         {
