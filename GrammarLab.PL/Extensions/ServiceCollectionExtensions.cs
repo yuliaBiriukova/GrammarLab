@@ -21,7 +21,8 @@ public static class ServiceCollectionExtensions
             options.Password.RequireLowercase = false;
             options.Password.RequireUppercase = false;
         })
-            .AddEntityFrameworkStores<GrammarLabDbContext>();
+            .AddEntityFrameworkStores<GrammarLabDbContext>()
+            .AddTokenProvider<DataProtectorTokenProvider<User>>(TokenOptions.DefaultProvider);
 
         var tokenOptions = configuration.GetSection(nameof(JwtTokenOptions)).Get<JwtTokenOptions>()
             ?? throw new ConfigurationErrorsException($"{nameof(JwtTokenOptions)} section is required in the configuration.");

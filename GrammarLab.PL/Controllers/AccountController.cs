@@ -2,8 +2,6 @@
 using GrammarLab.BLL.Models;
 using GrammarLab.BLL.Services;
 using GrammarLab.PL.ViewModels;
-using LanguageExt;
-using LanguageExt.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -25,21 +23,6 @@ public class AccountController : ControllerBase
         _mapper = mapper;
     }
 
-    [HttpPost("register")]
-    [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> Register([FromForm] RegisterUserViewModel model)
-    {
-        var registerDto = _mapper.Map<RegisterUserDto>(model);
-        var result = await _accountService.RegisterAsync(registerDto);
-
-        if (!result.Succeeded)
-        {
-            return BadRequest(result);
-        }
-
-        return Ok(result.Succeeded);
-    }
-
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromForm] LoginViewModel model)
     {
@@ -48,24 +31,10 @@ public class AccountController : ControllerBase
 
         if (!result.Success)
         {
-            return BadRequest( new { Message = result.Error } );
+            return BadRequest(new { Error = new { Message = result.Error } });
         }
 
         return Ok(new { result.AccessToken, result.Roles });
-    }
-
-    [HttpDelete]
-    [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> DeleteUserByEmail(string email)
-    {
-        var result = await _accountService.DeleteUserByEmailAsync(email);
-
-        if (!result.Succeeded)
-        {
-            return BadRequest(result);
-        }
-
-        return Ok(result.Succeeded);
     }
 
     [HttpGet("current")]
@@ -79,7 +48,7 @@ public class AccountController : ControllerBase
             return BadRequest(new { Error = new { Message = "UserId was not found" } });
         }
 
-        var userData = await _userService.GetUserDataById(userId);
+        var userData = await _userService.GetUserDataByIdAsync(userId);
 
         if(userData == null)
         {
