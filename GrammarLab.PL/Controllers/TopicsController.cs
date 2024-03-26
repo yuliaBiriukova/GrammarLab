@@ -33,6 +33,13 @@ public class TopicsController : ControllerBase
         return Ok(_mapper.Map<TopicViewModel>(topic));
     }
 
+    [HttpGet("search")]
+    public async Task<IActionResult> SearchTopicsByName([FromQuery] string query)
+    {
+        var topics = await _topicService.SearchByNameAsync(query);
+        return Ok(_mapper.Map<IEnumerable<TopicViewModel>>(topics));
+    }
+
     [Authorize(Roles = "Admin, Teacher")]
     [HttpPost]
     public async Task<IActionResult> AddTopic([FromForm] AddTopicViewModel model)

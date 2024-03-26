@@ -12,7 +12,7 @@ public interface ITopicService
 
     Task<TopicDto?> GetByIdAsync(int id);
 
-    Task<IEnumerable<TopicDto>> GetByLevelIdAsync(int levelId);
+    Task<IEnumerable<TopicDto>> SearchByNameAsync(string searchQuery);
 
     Task<Result<bool>> UpdateAsync(TopicDto topic);
 

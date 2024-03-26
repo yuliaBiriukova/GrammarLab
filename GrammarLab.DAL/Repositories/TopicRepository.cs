@@ -1,6 +1,7 @@
 ﻿using GrammarLab.BLL.Entities;
 using GrammarLab.BLL.Repositories;
 using GrammarLab.DAL.Database;
+using LanguageExt;
 using Microsoft.EntityFrameworkCore;
 
 namespace GrammarLab.DAL.Repositories;
@@ -41,10 +42,19 @@ public class TopicRepository : ITopicRepository
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task<IEnumerable<Topic>> GetByLevelIdAsync(int levelId)
+    public async Task<IEnumerable<Topic>> GetByNameAsync(string nameQuery)
     {
+        var keywords = nameQuery.ToLower().Split(" ", StringSplitOptions.RemoveEmptyEntries);
+
         return await _dbContext.Topics
-            .Where(t => t.LevelId == levelId)
+            .Select(x => new
+            {
+                Topic = x,
+                MatchCount = keywords.Count(k => x.Name.ToLower().Contains(k))
+            })
+            .Where(x => x.MatchCount > 0)
+            .OrderByDescending(x => x.MatchCount)
+            .Select(x => x.Topic)
             .AsNoTracking()
             .ToListAsync();
     }

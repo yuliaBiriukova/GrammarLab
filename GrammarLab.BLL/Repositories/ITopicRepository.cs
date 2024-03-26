@@ -12,7 +12,7 @@ public interface ITopicRepository
 
     Task<Topic?> GetByIdAsync(int id);
 
-    Task<IEnumerable<Topic>> GetByLevelIdAsync(int levelId);
+    Task<IEnumerable<Topic>> GetByNameAsync(string nameQuery);
 
     Task<bool> UpdateAsync(Topic topic);
 }

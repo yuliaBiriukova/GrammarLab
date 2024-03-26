@@ -51,9 +51,9 @@ public class TopicService : ITopicService
         return _mapper.Map<TopicDto>(topic);
     }
 
-    public async Task<IEnumerable<TopicDto>> GetByLevelIdAsync(int levelId)
+    public async Task<IEnumerable<TopicDto>> SearchByNameAsync(string searchQuery)
     {
-        var topics =  await _topicRepository.GetByLevelIdAsync(levelId);
+        var topics = await _topicRepository.GetByNameAsync(searchQuery);
         return _mapper.Map<IEnumerable<TopicDto>>(topics);
     }
 

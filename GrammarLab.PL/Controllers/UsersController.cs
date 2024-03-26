@@ -29,7 +29,7 @@ public class UsersController : ControllerBase
         return Ok(model);
     }
 
-    [HttpPost("new")]
+    [HttpPost]
     public async Task<IActionResult> AddUser([FromForm] AddUserViewModel model)
     {
         var registerDto = _mapper.Map<AddUserDto>(model);

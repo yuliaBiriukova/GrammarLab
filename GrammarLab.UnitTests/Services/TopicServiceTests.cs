@@ -168,39 +168,4 @@ public class TopicServiceTests
         topicFromService.Should().NotBeNull();
         topicFromService.Should().BeEquivalentTo(expectedTopic);
     }
-
-    [Fact]
-    public async Task GetByLevelIdAsync_ReturnsMappedTopics()
-    {
-        //Arrange 
-        var levelId = 1;
-        var expectedTopics = new List<Topic>
-        {
-           new () 
-           {
-                Id = 1,
-                Name = "Present Simple",
-                Content = "Present Simple rules",
-                LevelId = levelId,
-           },
-           new ()
-           {
-                Id = 1,
-                Name = "Present Perfect",
-                Content = "Present Perfect rules",
-                LevelId = levelId,
-           },
-        };
-
-        _topicRepositoryMock
-           .Setup(r => r.GetByLevelIdAsync(levelId))
-           .ReturnsAsync(expectedTopics);
-
-        // Act
-        var topicsFromService = await _topicService.GetByLevelIdAsync(levelId);
-
-        //Assert 
-        topicsFromService.Should().NotBeNull().And.HaveCount(2);
-        topicsFromService.FirstOrDefault().Name.Should().NotBeNull().And.BeSameAs(expectedTopics.FirstOrDefault().Name);
-    }
 }
