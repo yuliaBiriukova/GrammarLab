@@ -5,5 +5,5 @@ public class LevelDto
     public int Id { get; set; }
     public string Code { get; set; }
     public string Name { get; set; }
-    public ICollection<TopicDto>? Topics { get; set; }
+    public ICollection<LevelTopicDto>? Topics { get; set; }
 }

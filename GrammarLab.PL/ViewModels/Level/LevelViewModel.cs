@@ -5,5 +5,5 @@ public class LevelViewModel
     public int Id { get; set; }
     public string Code { get; set; }
     public string Name { get; set; }
-    public ICollection<TopicViewModel>? Topics { get; set; }
+    public ICollection<LevelTopicViewModel>? Topics { get; set; }
 }

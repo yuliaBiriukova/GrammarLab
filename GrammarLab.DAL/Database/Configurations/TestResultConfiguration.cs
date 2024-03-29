@@ -4,9 +4,9 @@ using GrammarLab.BLL.Entities;
 
 namespace GrammarLab.DAL.Database.Configurations;
 
-public class CompletedTestConfiguration : IEntityTypeConfiguration<CompletedTest>
+public class TestResultConfiguration : IEntityTypeConfiguration<TestResult>
 {
-    public void Configure(EntityTypeBuilder<CompletedTest> builder)
+    public void Configure(EntityTypeBuilder<TestResult> builder)
     {
         builder.Property(c => c.UserId).HasMaxLength(450);
 

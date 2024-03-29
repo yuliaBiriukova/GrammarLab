@@ -6,38 +6,38 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GrammarLab.DAL.Repositories;
 
-public class CompletedTestRepository : ICompletedTestRepository
+public class TestResultRepository : ITestResultRepository
 {
     private readonly GrammarLabDbContext _dbContext;
 
-    public CompletedTestRepository(GrammarLabDbContext dbContext)
+    public TestResultRepository(GrammarLabDbContext dbContext)
     {
         _dbContext = dbContext;
     }
 
-    public async Task<int> AddAsync(CompletedTest completedTest)
+    public async Task<int> AddAsync(TestResult testResult)
     {
-        _dbContext.CompletedTests.Add(completedTest);
+        _dbContext.TestResults.Add(testResult);
         await _dbContext.SaveChangesAsync();
-        return completedTest.Id;
+        return testResult.Id;
     }
 
     public async Task<bool> CheckExistsAsync(int id)
     {
-        return await _dbContext.CompletedTests.AnyAsync(t => t.Id == id);
+        return await _dbContext.TestResults.AnyAsync(t => t.Id == id);
     }
 
     public async Task<bool> DeleteAsync(int id)
     {
-        var completedTestToDelete = new CompletedTest() { Id = id };
-        _dbContext.CompletedTests.Remove(completedTestToDelete);
+        var testResultToDelete = new TestResult() { Id = id };
+        _dbContext.TestResults.Remove(testResultToDelete);
         var rowsAffected = await _dbContext.SaveChangesAsync();
         return rowsAffected > 0;
     }
 
-    public async Task<IEnumerable<CompletedTest>> GetAsync(CompletedTestFilter filter)
+    public async Task<IEnumerable<TestResult>> GetAsync(TestResultFilter filter)
     {
-        var query = _dbContext.CompletedTests
+        var query = _dbContext.TestResults
             .Include(с => с.Topic)
             .Where(c => c.UserId == filter.UserId)
             .AsQueryable();
@@ -54,9 +54,9 @@ public class CompletedTestRepository : ICompletedTestRepository
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<CompletedTest>> GetBestTopicsResultsAsync(CompletedTestFilter filter)
+    public async Task<IEnumerable<TestResult>> GetBestTopicsResultsAsync(TestResultFilter filter)
     {
-        var query = _dbContext.CompletedTests
+        var query = _dbContext.TestResults
              .Include(c => c.Topic)
              .Where(c => c.UserId == filter.UserId);
 
@@ -65,7 +65,7 @@ public class CompletedTestRepository : ICompletedTestRepository
             query = query.Where(c => c.Topic.LevelId == filter.LevelId);
         }
 
-        var groupedCompletedTests = await query
+        var groupedTestResults = await query
             .GroupBy(c => c.TopicId)
             .Select(group => group
                 .OrderByDescending(c => c.Percentage)
@@ -73,23 +73,23 @@ public class CompletedTestRepository : ICompletedTestRepository
             .AsNoTracking()
             .ToListAsync();
 
-        var filteredResults = ApplyFilter(groupedCompletedTests.AsQueryable(), filter);
+        var filteredResults = ApplyFilter(groupedTestResults.AsQueryable(), filter);
 
         return filteredResults.ToList();
     }
 
-    public async Task<CompletedTest?> GetByIdWithExercisesAsync(int id)
+    public async Task<TestResult?> GetByIdWithExercisesAsync(int id)
     {
-        return await _dbContext.CompletedTests
+        return await _dbContext.TestResults
             .Include(c =>  c.Topic)
-            .Include(c => c.CompletedTestExercises)
+            .Include(c => c.TestResultExercises)
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task<IEnumerable<CompletedTest>> GetByTopicIdAsync(int topicId, string userId)
+    public async Task<IEnumerable<TestResult>> GetByTopicIdAsync(int topicId, string userId)
     {
-        return await _dbContext.CompletedTests
+        return await _dbContext.TestResults
             .Include(с => с.Topic)
             .Where(c => c.UserId == userId && c.TopicId == topicId)
             .OrderByDescending(c => c.DateCompleted)
@@ -97,9 +97,9 @@ public class CompletedTestRepository : ICompletedTestRepository
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<CompletedTest>> GetLastTopicsResultsAsync(CompletedTestFilter filter)
+    public async Task<IEnumerable<TestResult>> GetLastTopicsResultsAsync(TestResultFilter filter)
     {
-        var query = _dbContext.CompletedTests
+        var query = _dbContext.TestResults
             .Include(c => c.Topic)
             .Where(c => c.UserId == filter.UserId);
 
@@ -108,7 +108,7 @@ public class CompletedTestRepository : ICompletedTestRepository
             query = query.Where(c => c.Topic.LevelId == filter.LevelId);
         }
         
-        var groupedCompletedTests = await query
+        var groupedTestResults = await query
             .GroupBy(c => c.TopicId)
             .Select(group => group
                 .OrderByDescending(c => c.DateCompleted)
@@ -116,12 +116,12 @@ public class CompletedTestRepository : ICompletedTestRepository
             .AsNoTracking()
             .ToListAsync();
 
-        var filteredResults = ApplyFilter(groupedCompletedTests.AsQueryable(), filter);
+        var filteredResults = ApplyFilter(groupedTestResults.AsQueryable(), filter);
 
         return filteredResults.ToList();
     }
 
-    private IQueryable<CompletedTest> ApplyFilter(IQueryable<CompletedTest> query, BaseFilter filter)
+    private IQueryable<TestResult> ApplyFilter(IQueryable<TestResult> query, BaseFilter filter)
     {
         if (string.Equals(filter.SortBy, Constants.PercentageProperty, StringComparison.OrdinalIgnoreCase))
         {

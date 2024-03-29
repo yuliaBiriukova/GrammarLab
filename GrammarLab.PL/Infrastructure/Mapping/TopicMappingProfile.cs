@@ -13,5 +13,7 @@ public class TopicMappingProfile : Profile
         CreateMap<AddTopicDto, Topic>();
         CreateMap<AddTopicViewModel, AddTopicDto>();
         CreateMap<TopicDto, TopicViewModel>().ReverseMap();
+        CreateMap<Topic, LevelTopicDto>();
+        CreateMap<LevelTopicDto, LevelTopicViewModel>();
     }
 }

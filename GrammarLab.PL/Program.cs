@@ -24,14 +24,14 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<ILevelRepository, LevelRepository>();
 builder.Services.AddScoped<ITopicRepository, TopicRepository>();
 builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>();
-builder.Services.AddScoped<ICompletedTestRepository, CompletedTestRepository>();
+builder.Services.AddScoped<ITestResultRepository, TestResultRepository>();
 
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ILevelService, LevelService>();
 builder.Services.AddScoped<ITopicService, TopicService>();
 builder.Services.AddScoped<IExerciseService, ExerciseService>();
-builder.Services.AddScoped<ICompletedTestService, CompletedTestService>();
+builder.Services.AddScoped<ITestResultService, TestResultService>();
 
 var app = builder.Build();
 

@@ -12,9 +12,9 @@ public class GrammarLabDbContext : IdentityDbContext<User>
 
     public DbSet<Exercise> Exercises { get; set; }
 
-    public DbSet<CompletedTest> CompletedTests { get; set; }
+    public DbSet<TestResult> TestResults { get; set; }
 
-    public DbSet<CompletedTestExercise> CompletedTestExercises { get; set; }
+    public DbSet<TestResultExercise> TestResultExercises { get; set; }
 
     public GrammarLabDbContext(DbContextOptions options) : base(options) {}
 

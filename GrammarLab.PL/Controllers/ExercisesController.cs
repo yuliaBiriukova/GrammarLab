@@ -43,7 +43,7 @@ public class ExercisesController : ControllerBase
 
     [Authorize(Roles = "Admin, Teacher")]
     [HttpPost]
-    public async Task<IActionResult> AddExercise(AddExerciseViewModel model)
+    public async Task<IActionResult> AddExercise([FromForm] AddExerciseViewModel model)
     {
         var exercise = _mapper.Map<AddExerciseDto>(model);
         var result = await _exerciseService.AddAsync(exercise);
@@ -55,7 +55,7 @@ public class ExercisesController : ControllerBase
 
     [Authorize(Roles = "Admin, Teacher")]
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateExercise(int id, [FromBody] ExerciseViewModel model)
+    public async Task<IActionResult> UpdateExercise(int id, [FromForm] ExerciseViewModel model)
     {
         var exercise = _mapper.Map<ExerciseDto>(model);
         var result = await _exerciseService.UpdateAsync(exercise);

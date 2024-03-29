@@ -8,7 +8,7 @@ public class FiltersMappingProfile : Profile
 {
     public FiltersMappingProfile()
     {
-        CreateMap<CompletedTestFilterViewModel, CompletedTestFilter>();
+        CreateMap<TestResultFilterViewModel, TestResultFilter>();
         CreateMap<BaseFilterViewModel, BaseFilter>();
     }
 }

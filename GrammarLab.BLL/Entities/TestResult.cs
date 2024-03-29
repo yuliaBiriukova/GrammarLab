@@ -1,6 +1,6 @@
 ﻿namespace GrammarLab.BLL.Entities;
 
-public class CompletedTest
+public class TestResult
 {
     public int Id { get; set; }
     public int Percentage { get; set; }
@@ -9,5 +9,5 @@ public class CompletedTest
     public Topic Topic { get; set; }
     public string UserId { get; set; }
     public User User { get; set; }
-    public ICollection<CompletedTestExercise>? CompletedTestExercises { get; set; }
+    public ICollection<TestResultExercise>? TestResultExercises { get; set; }
 }
