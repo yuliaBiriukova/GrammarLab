@@ -288,7 +288,7 @@ public class LevelServiceTests
         //Arrange 
         var id = 1;
         var level = new Level() { Id = id, Code = "A1", Name = "Beginner" };
-        var expectedLevel = new LevelDto() { Id = id, Code = "A1", Name = "Beginner", Topics = new List<TopicDto>() };
+        var expectedLevel = new LevelDto() { Id = id, Code = "A1", Name = "Beginner", Topics = new List<LevelTopicDto>() };
 
         _levelRepositoryMock
            .Setup(r => r.GetByIdAsync(id))
