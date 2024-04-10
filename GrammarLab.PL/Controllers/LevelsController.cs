@@ -32,11 +32,6 @@ public class LevelsController : ControllerBase
     public async Task<IActionResult> GetLevelById(int id)
     {
         var level = await _levelService.GetLevelByIdAsync(id);
-        if (level == null)
-        {
-            return NotFound(new { Error = new { Message = $"Level with id={id} was not found" } });
-        }
-
         return Ok(_mapper.Map<LevelViewModel>(level));
     }
 
@@ -44,11 +39,6 @@ public class LevelsController : ControllerBase
     public async Task<IActionResult> GetLevelByIdWithTopics(int id)
     {
         var level = await _levelService.GetLevelByIdWithTopicsAsync(id);
-        if (level == null)
-        {
-            return NotFound(new { Error = new { Message = $"Level with id={id} was not found" } });
-        }
-
         return Ok(_mapper.Map<LevelViewModel>(level));
     }
 

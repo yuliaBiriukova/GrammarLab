@@ -47,6 +47,11 @@ public class TestResultRepository : ITestResultRepository
             query = query.Where(c => c.TopicId == filter.TopicId);
         }
 
+        if (filter.LevelId != null)
+        {
+            query = query.Where(c => c.Topic.LevelId == filter.LevelId);
+        }
+
         query = ApplyFilter(query, filter);
 
         return await query

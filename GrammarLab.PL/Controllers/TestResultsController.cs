@@ -35,11 +35,6 @@ public class TestResultsController : ControllerBase
     public async Task<IActionResult> GetTestResultById(int id)
     {
         var testResult = await _testResultService.GetByIdWithExercisesAsync(id);
-        if (testResult == null)
-        {
-            return NotFound(new { Error = new { Message = $"Completed test with id={id} was not found" } });
-        }
-
         return Ok(_mapper.Map<TestResultViewModel>(testResult));
     }
 

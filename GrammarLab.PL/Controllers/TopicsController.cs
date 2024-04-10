@@ -25,11 +25,6 @@ public class TopicsController : ControllerBase
     public async Task<IActionResult> GetTopicById(int id)
     {
         var topic = await _topicService.GetByIdAsync(id);
-        if(topic == null)
-        {
-            return NotFound(new { Error = new { Message = $"Topic with id={id} was not found" } });
-        }
-
         return Ok(_mapper.Map<TopicViewModel>(topic));
     }
 

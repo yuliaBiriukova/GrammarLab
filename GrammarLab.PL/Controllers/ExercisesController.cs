@@ -26,11 +26,6 @@ public class ExercisesController : ControllerBase
     public async Task<IActionResult> GetExerciseById(int id)
     {
         var exercise =  await _exerciseService.GetByIdAsync(id);
-        if (exercise == null)
-        {
-            return NotFound(new { Error = new { Message = $"Exerise with id={id} was not found" } });
-        }
-
         return Ok(_mapper.Map<ExerciseViewModel>(exercise));
     }
 
