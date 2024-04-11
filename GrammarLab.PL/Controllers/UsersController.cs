@@ -22,9 +22,10 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllUsers()
+    public async Task<IActionResult> GetUsers([FromQuery] UserFilterViewModel filterModel)
     {
-        var users = await _userService.GetAllUsersAsync();
+        var filter = _mapper.Map<UserFilter>(filterModel);
+        var users = await _userService.GetUsersAsync(filter);
         var model = _mapper.Map<IEnumerable<UserViewModel>>(users);
         return Ok(model);
     }

@@ -10,5 +10,6 @@ public class FiltersMappingProfile : Profile
     {
         CreateMap<TestResultFilterViewModel, TestResultFilter>();
         CreateMap<BaseFilterViewModel, BaseFilter>();
+        CreateMap<UserFilterViewModel, UserFilter>();
     }
 }

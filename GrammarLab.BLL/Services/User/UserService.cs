@@ -84,16 +84,11 @@ public class UserService : IUserService
         return result;
     }
 
-    public async Task<IEnumerable<UserDto>?> GetAllUsersAsync()
+    public async Task<IEnumerable<UserDto>> GetAllUsersAsync()
     {
         var users = await _userManager.Users.ToListAsync();
 
         var usersData = new List<UserDto>();
-
-        if (users == null || !users.Any())
-        {
-            return usersData;
-        }
 
         foreach (var user in users)
         {
@@ -129,6 +124,38 @@ public class UserService : IUserService
         }
 
         return userData;
+    }
+
+    public async Task<IEnumerable<UserDto>> GetUsersAsync(UserFilter filter)
+    {
+        IList<User> users;
+
+        if (filter.UserRole.HasValue)
+        {
+            users = await _userManager.GetUsersInRoleAsync(filter.UserRole.ToString()!);
+        } 
+        else
+        {
+            users = await _userManager.Users.ToListAsync();
+        }
+
+        var usersData = new List<UserDto>();
+
+        foreach (var user in users)
+        {
+            var userData = _mapper.Map<UserDto>(user);
+
+            userData.Roles = await _userManager.GetRolesAsync(user);
+
+            if (user.LevelId != null)
+            {
+                userData.Level = await _levelService.GetLevelByIdAsync(user.LevelId.Value);
+            }
+
+            usersData.Add(userData);
+        }
+
+        return usersData;
     }
 
     public async Task<Result<bool>> UpdateUserAsync(UpdateUserDto updatedUser)

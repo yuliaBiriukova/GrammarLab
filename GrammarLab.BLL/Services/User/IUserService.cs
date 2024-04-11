@@ -12,7 +12,9 @@ public interface IUserService
 
     Task<IdentityResult> DeleteUserByIdAsync(string userId);
 
-    Task<IEnumerable<UserDto>?> GetAllUsersAsync();
+    Task<IEnumerable<UserDto>> GetAllUsersAsync();
+
+    Task<IEnumerable<UserDto>> GetUsersAsync(UserFilter filter);
 
     Task<UserDto?> GetUserDataByIdAsync(string userId);
 
