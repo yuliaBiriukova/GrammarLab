@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GrammarLab.BLL.Entities;
 using GrammarLab.BLL.Models;
 using GrammarLab.BLL.Services;
 using GrammarLab.PL.ViewModels;
@@ -30,6 +31,14 @@ public class UsersController : ControllerBase
         return Ok(model);
     }
 
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetUserById(string id)
+    {
+        var user= await _userService.GetUserDataByIdAsync(id);
+        var model = _mapper.Map<UserViewModel>(user);
+        return Ok(model);
+    }
+
     [HttpPost]
     public async Task<IActionResult> AddUser([FromForm] AddUserViewModel model)
     {
@@ -44,7 +53,7 @@ public class UsersController : ControllerBase
         return Ok(result.Succeeded);
     }
 
-    [HttpDelete]
+    [HttpDelete("{userId}")]
     public async Task<IActionResult> DeleteUserById(string userId)
     {
         var result = await _userService.DeleteUserByIdAsync(userId);
