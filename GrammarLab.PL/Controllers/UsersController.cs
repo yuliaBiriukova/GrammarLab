@@ -78,9 +78,9 @@ public class UsersController : ControllerBase
     }
 
     [HttpPut("password")]
-    public async Task<IActionResult> ChangeUserPassword(string userId, string password)
+    public async Task<IActionResult> ChangeUserPassword(ChangePasswordViewModel model)
     {
-        var result = await _userService.ChangeUserPasswordAsync(userId, password);
+        var result = await _userService.ChangeUserPasswordAsync(model.UserId, model.Password);
 
         if (!result.Succeeded)
         {
